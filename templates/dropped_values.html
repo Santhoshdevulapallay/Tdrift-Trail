@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
+    <title>TMeter_details</title>
+    
+    <meta charset = "utf-8">
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
+   {% comment %} <link rel=stylesheet href="{% static './hour_calendar.css' %} "> {% endcomment %}
+    <link rel=stylesheet href="{% static './hour_navbar.css' %} ">    
+
+  
+<!-- Javascript -->
+    
+    <style>
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 10px  #80ffdf;
+  background-color: #038cfc;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size:15px;
+}
+
+li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+li a.active {
+  color: white;
+  background-color: lightgreen;
+}
+li a.active2 {
+  color:white;
+}
+
+    
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        float:right;
+    }
+
+    .button1 {width: 100px;}
+    .addcolor {
+    background-color: #038cfc;
+    color: white;
+    text-align:float;
+    font-size:15px;
+}
+.mainbody{
+    background-color:#f5efce;
+    padding-top:0px;
+    padding-right:20px;
+}
+textarea{
+  resize: None;
+}
+</style>
+<script>
+function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+
+
+
+
+function formatTime(timeInput) {
+
+  intValidNum = timeInput.value;
+
+  if (intValidNum < 24 && intValidNum.length == 2) {
+      timeInput.value = timeInput.value + ":";
+      return false;  
+  }
+  if (intValidNum == 24 && intValidNum.length == 2) {
+      timeInput.value = timeInput.value.length - 2 + "0:";
+      return false;
+  }
+  if (intValidNum > 24 && intValidNum.length == 2) {
+      timeInput.value = "";
+      return false;
+  }
+
+  if (intValidNum.length == 5 && intValidNum.slice(-2) < 60) {
+    timeInput.value = timeInput.value + ":";
+    return false;
+  }
+  if (intValidNum.length == 5 && intValidNum.slice(-2) > 60) {
+    timeInput.value = timeInput.value.slice(0, 2) + ":";
+    return false;
+  }
+  if (intValidNum.length == 5 && intValidNum.slice(-2) == 60) {
+    timeInput.value = timeInput.value.slice(0, 2) + ":00:";
+    return false;
+  }
+
+
+  if (intValidNum.length == 8 && intValidNum.slice(-2) > 60) {
+    timeInput.value = timeInput.value.slice(0, 5) + ":";
+    return false;
+  }
+  if (intValidNum.length == 8 && intValidNum.slice(-2) == 60) {
+    timeInput.value = timeInput.value.slice(0, 5) + ":00";
+    return false;
+  }
+
+
+
+}
+</script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    
+    $( ".datepickers" ).datepicker();
+  } );
+  </script>
+  <style>
+.button {
+  background-color: #008CBA; /* Green */
+  border: none;
+  border-radius:5px;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+<style>
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: lightgreen;
+    display: inline-block;
+    width:25%;
+    height:45px;
+    text-align:center;
+    border-radius:5px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: green;
+}
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+</style>
+
+</head>
+
+<body class="mainbody">
+<ul>
+  <li><a class="active" href="home" value="Home" style="text-decoration:none;"><h4 style="font:bold;color:black;"> Home</h4></a></li>
+  <li><a href='month_detailspage' class="nav-link text-light active2"  style="text-decoration:none;"><h4 style="font:bold;color:black;">Month wise details</h4></a>
+  </li>
+  <li><a href='date_wisedetails' class="nav-link text-light active2"  style="text-decoration:none;"><h4 style="font:bold;color:black;">Date wise details</h4></a>
+  </li>
+  <li>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</li>
+  <li><a href="{% url 'logout' %}" class="nav-link text-light active2"  style="float:right;text-decoration:none;"><h4 style="font:bold;color:black;">Logout</h4></a>
+  </li>
+</ul>
+<br>
+<div>
+<p style="color:red;">Left out values after uploading of an excel file previously </p> 
+</div>
+<br>
+<form action="stationdata" method="POST" id="align" onsubmit="return confirm('Do you really want to submit the form?');" >
+    {% comment %} {% csrf_token %} {% endcomment %}
+    <div class="table-responsive info "> 
+    
+
+
+
+        <table class="table warning ">
+            <thead class="thead-dark">
+                <tr  class="addcolor">
+                
+                    <th style="font:bold;color:black;padding-bottom:17px;">Station Name</th>
+                    <th style="font:bold;color:black;padding-bottom:17px;">Meter No</th>
+                    <th style="font:bold;color:black;padding-bottom:17px;">GPS</th>
+                    <th style="font:bold;color:black;padding-bottom:17px;">Meter Time</th>
+                    <th style="font:bold;color:black;padding-bottom:17px;">Time Drift</th>
+                    <th style="font:bold;color:black;padding-bottom:17px;"> Date of Checking</th>
+                    <th style="font:bold;color:black;"> Whether time Correction done ?</th>
+                    <th style="font:bold;color:black;padding-bottom:17px;"> Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+            {%for item in dropped %}
+                <tr>
+                {%for station in item %}
+
+                <td><textarea type="text" row="1" cols="35" wrap="soft" readonly class="form-control" id="exampleFormControlSelect1"  max_length=250 name="station name">{{station}}</textarea></td>
+                {% endfor %}
+
+                <td><input  id="txtStartTime" autocomplete="off" type="text" class="form-control" id="exampleFormControlSelect1" name="GPS" id="num1" placeholder="HH:MM:SS" onkeypress="return isNumberKey(event) && formatTime(this)" MaxLength="8" required ></td>
+
+                <td><input id="txtStartTime" autocomplete="off" type="text" class="form-control" id="exampleFormControlSelect1" id="num2" name="METER DRIFT" placeholder="HH:MM:SS" onkeypress="return isNumberKey(event) && formatTime(this)" MaxLength="8" required></td>
+
+                <td><input  type="text" autocomplete="off" class="form-control" id="exampleFormControlSelect1" placeholder="HH:MM:SS" name="difference" ></td>
+
+                <td><input type="text" id="datepicker{{forloop.counter}}" autocomplete="off" class=" form-control datepickers"  placeholder="MM/DD/YYYY" name="DOC" required  ></td>
+                
+                <td>
+                    <select name="station" class="form-control" id="exampleFormControlSelect1">
+                    <option value="" selected disabled hidden>Choose here</option>
+                    <option>YES</option>
+                    <option>NO</option></select>
+                </td>
+                <td><input  type="text" autocomplete="off" class="form-control" id="exampleFormControlSelect1" name="REMARKS"  ></td>
+                <!--{% if not forloop.last %} {% endif %} id="datepicker-13"-->
+                </tr>
+                
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br>
+    <div class="form-group">
+        <button type="submit" class="button button1 btn btn-lg" value="click">Submit</button> 
+    </div>
+    
+</form>
+</body>
+

@@ -1,0 +1,230 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Date_wise details</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+    {% comment %} <link rel=stylesheet href ="{% static './date_range.css' %} "> {% endcomment %}
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
+<style>
+button{
+        margin-right:50%;
+    }
+body {
+  font-size: 18px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #038cfc;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #4dffa6;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+.headcolor{
+  background-color:lightblue;
+  color:black;
+  font-size:18px;
+}
+tr:hover {
+  background-color: #ffcccc;
+}
+</style>
+<script>
+function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+
+$(function(){
+    $('a').each(function(){
+        if ($(this).prop('href') == window.location.href) {
+            $(this).addClass('active'); $(this).parents('li').addClass('active');
+          }
+      });
+});
+
+
+
+
+</script>
+
+{% comment %}  {% endcomment %}
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+</head>
+{% block content %}
+<body>
+
+<ul>
+  <li><a href="home" style="text-decoration:none"><h4 style="font:bold;color:black;">Home</h4></a></li>
+  <li><a href='month_detailspage' style="text-decoration:none"><h4 style="font:bold;color:black;">Month_wise_details</h4></a></li>
+  <li><a href='date_wisedetails' style="text-decoration:none;"><h4 style="font:bold;color:black;">Date wise details</h4></a></li>
+  
+  <li style="float:right"><a href="{% url 'logout' %}" style="text-decoration:none" ><h4 style="font:bold;color:black;">Logout</h4></a></li>
+</ul>
+<div style="border:1px solid;">
+<form action="daterange" method="POST" class="form-horizantal" >
+  <div class="row" style="padding-left:10%;padding-top:1%">
+<br><br>
+  {% if start_date1 %}
+	  <div class="form-group col-sm-3">
+	  <label> From Date</label>
+      <input type="text" id="datepicker" name="fromdate" onkeydown="return false" autocomplete="off" value="{{start_date1}}" required width="220"/>
+	  </div>
+  {% else %}
+    <div class="form-group col-sm-3">
+    <label> From Date</label>
+      <input type="text" id="datepicker" name="fromdate" onkeydown="return false" autocomplete="off"  required width="220"/>
+    </div>
+  {% endif %}
+
+  {% if end_date1 %}
+	  <div class="form-group col-sm-3">
+	  <label>To Date</label>
+    <input type="text" id="datepicker1" name="todate" onkeydown="return false" autocomplete="off" value="{{end_date1}}"required  width="220"/>
+	  </div>
+    {% else %} 
+    <div class="form-group col-sm-3">
+    <label>To Date</label>
+    <input type="text" id="datepicker1" name="todate" onkeydown="return false" autocomplete="off" required  width="220"/>
+    </div>
+    {% endif %}
+    {% if request.user.username == "SRLDC_MO" %}
+    <div class="form-group col-sm-3">
+	  <label>Tdrift Threshold</label>
+    <input  style="width:250px;" autocomplete="off" type="text" class="form-control"  name="threshold"  placeholder="HH:MM:SS" required pattern="^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$">
+	  </div>
+    {% endif %}
+    <br>
+    <div class="form-group col-sm-3">
+      <button type="submit" class="btn btn-primary " value="click" >Submit</button>
+    </div>
+  </div></form>
+
+  </div>
+  <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+		$('#datepicker1').datepicker({
+            uiLibrary: 'bootstrap'
+        });
+</script>
+
+{% if datedetails %}
+<label style="margin-left:1%;width:35%;display:inline;"><h5><b>Search Here :</b>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Station names.. or anything"  style="width:46%;outline:None;border-radius:5px;height:35px;">
+    <a style="float:right;" href="date_excel_download"><span class="glyphicon glyphicon-download-alt"></span></a><b style="float:right;">Download Xcel :</b> 
+    
+    
+    </h5>
+</label>
+  
+<table class="table table-sm table-bordered" style="margin:auto;" id="myTable" >
+        <thead class="headcolor">
+
+            <tr>
+                <th style="padding-bottom: 25px;">Utility Name</th>
+                <th style="padding-bottom: 25px;">Station Name</th>
+                <th style="padding-bottom: 25px;">Description</th>
+                <th style="padding-bottom: 18px;">Meter No</th>
+                <th style="padding-bottom: 18px;">Location</th>
+                <th style="padding-bottom: 25px;">GPS</th>
+                <th style="padding-bottom: 18px;">Meter Time</th>
+                <th>Time Drift</th>
+                <th>Date of Checking</th>
+                <th>Whether time Correction done ?</th>
+                <th style="padding-bottom: 25px;">Meter Status(Fast/Slow)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {%for station in datedetails %}
+                <tr>
+                {% for item in station %}
+                    <td style="text-align:center;vertical-align:center;font-size:14px;">{{item}}</td>
+
+               <!--  <td><input type="text" readonly  height="200" class="form-control" id="exampleFormControlSelect1" width="50" max_length=250 value="{{item}}"> </td>
+                {% comment %} <td><input type="text" readonly  height="200" class="form-control" id="exampleFormControlSelect1" width="50" max_length=250 value="{{station.Meter_no}}"> </td>
+                <td><input type="text" readonly class="form-control" id="exampleFormControlSelect1"      value="{{station.gps}}"></td>
+                <td><input type="text" readonly  class="form-control" id="exampleFormControlSelect1" value="{{station.meter_drift}}"></td>
+                <td><input type="text" readonly  class="form-control" id="exampleFormControlSelect1" value="{{station.meter_difference}}"></td>
+                <td><input type="text" readonly  class="form-control" id="exampleFormControlSelect1" value="{{station.dateofchecking}}"  ></td>
+                <td><input type="text" readonly  class="form-control" id="exampleFormControlSelect1" value="{{station.correction_needed}}"  ></td>
+                <td><input type="text" readonly  class="form-control" id="exampleFormControlSelect1" value="{{station.remarks}}"></td> {% endcomment %} -->
+                <!--{% if not forloop.last %} {% endif %} id="datepicker-13"-->
+                {% endfor %}
+                </tr>
+                
+            {% endfor %}
+            </tbody>
+            </table>
+{% else %}
+<h4 style="color:red;text-align:center;"> No details found </h4>
+{% endif %}
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, cell, i, j;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    // Hide the row initially.
+    tr[i].style.display = "none";
+  
+    td = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < td.length; j++) {
+      cell = tr[i].getElementsByTagName("td")[j];
+      if (cell) {
+        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        } 
+      }
+    }
+  }
+}
+</script>
+ </body>
+</html>
+{% endblock %}

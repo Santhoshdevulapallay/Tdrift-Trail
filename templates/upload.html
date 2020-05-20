@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+  <title>Upload Semfile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> 
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> 
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> 
+  <style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;
+  border-radius:5px;
+  background-color:#008cff;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #4dffa6;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+</style>
+</head>
+{% block content %}
+<body>
+<ul>
+<li><a class="active" href="home" style="text-decoration:none"><h5 style="font:bold;color:black;">Home</h5></a></li>
+  <li><a href='month_detailspage' style="text-decoration:none"><h5 style="font:bold;color:black;">Month_wise_details</h5></a></li>
+  <li><a href='date_wisedetails' style="text-decoration:none;"><h5 style="font:bold;color:black;">Date wise details</h5></a></li>
+  
+  <li style="float:right"><a href="{% url 'logout' %}" style="text-decoration:none" ><h5 style="font:bold;color:black;">Logout</h5></a></li>
+</ul>
+<br><br>
+
+{% if nofileup %}
+<p style="color:red;font-size:18px;">Please upload the file</p>
+{% endif %}
+
+{% if unsupformat %}
+<p style="color:red;font-size:18px;">Please upload the file in .xls or .xlsx format</p>
+{% endif %}
+{% if invalid %}
+<p style="color:red;font-size:18px;">Please upload Semlog file only</p>
+
+{% endif %}
+<div style="height:50%;border:1px solid;">
+
+<div class="container mt-1">
+  <form method="POST" action="uploaded_file" enctype="multipart/form-data" style="padding-top:8%;">
+    <p><b>Upload file :</b></p>
+    <div class="col-md-5 col-md-offset-2">
+      <input type="file" name="document" class="custom-file-input col-xs-3" style="width:50%;" id="customFile" name="filename">
+      <label class="custom-file-label" for="customFile">Choose file</label>
+    
+		<div class="mt-3"><button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+	</div>
+  </form>
+
+
+  {% if url %}
+  <p style="color:green;"> Succesfully Uploaded: </p>
+  {% comment %} <a href="{{url}}">{{url}}</a> {% endcomment %}
+  {% elif url %}
+  <p> Failed to upload the file</p>
+  {% endif %}
+</div>
+</div>
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+
+</body>
+</html>
+
+
+{% endblock %}

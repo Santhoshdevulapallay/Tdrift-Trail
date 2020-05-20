@@ -1,0 +1,22 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: TestSite password reset
+From: webmaster@localhost
+To: udaysanthosh1995@gmail.com
+Date: Tue, 03 Dec 2019 07:05:25 -0000
+Message-ID: <157535672585.7472.4356404547305352926@DESKTOP-RM5DIKO>
+
+
+To initiate the password reset process for your ARAKU TestSite Account,
+click the link below:
+
+http://127.0.0.1:8000/reset/Mw/5by-51203b4d33dc3044faa8/
+
+If clicking the link above doesn't work, please copy and paste the URL in a new browser
+window instead.
+
+Sincerely,
+The TestSite Team
+
+-------------------------------------------------------------------------------

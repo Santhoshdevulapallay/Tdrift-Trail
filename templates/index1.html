@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block title %}
+Time Drift
+{% endblock title %}
+{% block content %}
+<style>
+#position{
+  text:float;
+}
+</style>
+{% comment %} <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> {% endcomment %}
+{% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> {% endcomment %}
+<div class="p-3 mb-2 bg-light text-dark">
+{% if user.is_authenticated %}
+    
+
+  {% if request.user.username == "S_SR1PG" %}
+    
+    <form action="submitform" method="get" id="align"  style="padding-bottom:20%;padding-top:5%;" >
+      <label for="exampleInputEmail1"  style="padding-bottom:8%;padding-top:5%;float:left;"> 
+      <h4 id="position"> Station Name: &nbsp;&nbsp;
+    <!--<div class="col-xs-3" {{user.username}}>-->
+      <label for="ex2"> 
+      <select name="station" required class="form-control" id="exampleFormControlSelect1">
+      <div class="col-15">
+        <option value="" selected disabled hidden >Choose here</option>
+          <option>CPETA</option>
+          <option>CUDDAPAH</option>
+          <option>CUDDAPAH 765</option>
+          <option>GAZUWAKA HVDC</option>
+          <option>GHANAPUR</option>
+          <option>GOOTY</option>
+          <option>KHAMMAM</option>
+          <option>KURNOOL 765kV</option>
+          <option>MAHESHWARAM</option>
+          <option>NELLORE</option>
+          <option>Nellore PS</option>
+          <option>NIZAMABAD</option>
+          <option>NP KUNTA (PG)</option>
+          <option>NSAGAR</option>
+          <option>SRIKAKULAM</option>
+          <option>TALCHER HVDC</option>
+          <option>VEMAGIRI(PG)</option>
+          <option>VIJAYAWADA</option>
+          <option>WARANGAL</option>
+          </div> 
+      </select>
+     
+       
+       </label> 
+      <button type="submit" class="btn btn-primary" value="click">Submit</button></h4>
+       </label> 
+    
+    </form >
+    {% elif request.user.username == "S_SR2PG" %}
+      <form action="submitform" method="get" id="align"style="padding-bottom:20%;padding-top:5%;" >
+      <label for="exampleInputEmail1" style="padding-bottom:8%;padding-top:5%;float:left;"> 
+      <h4 id="position">Station Name: &nbsp;&nbsp;
+    <!--<div class="col-xs-3" {{user.username}}>-->
+      <label for="ex2"> 
+      <select name="station" required class="form-control" id="exampleFormControlSelect1">
+      <div class="col-15">
+        <option value="" selected disabled hidden>Choose here</option>
+          
+          <option>ARASUR</option>
+          <option>BIDADI</option>
+          <option>DHARMAPURI</option>
+          <option>GAZUWAKA</option>
+          <option>HASAN</option>
+          <option>HIRIYUR</option>
+          <option>HOSUR</option>
+          <option>KALAVINTHAPATTU</option>
+          <option>KOCHI</option>
+          <option>KARAIKUDI</option>
+          <option>KOLAR</option>
+          <option>KOLAR HVDC</option>
+          <option>KOZHIKODE</option>
+          <option>KUDGI (PG)</option>
+          <option>MADHUGIRI</option>
+          <option>MADURAI</option>
+          <option>MYSORE</option>
+          <option>MUNIRABAD</option>
+          <option>NAGAPATTINAM</option>
+          <option>NARENDRA</option>
+          <option>PALAKKAD</option>
+          <option>PAVAGADA</option>
+          <option>PUDUCHERRY</option>
+          <option>PUGALUR</option>
+          <option>RAICHUR 765kV</option>
+          <option>SALEM</option>
+          <option>SOMANAHALLI</option>
+          <option>SRIPERUMBUDUR</option>
+          <option>THIRUVALAM</option>
+          <option>Thiruvalem 765</option>
+          <option>TIRUNELVELI</option>
+          <option>TRICHUR</option>
+          <option>TRICHY</option>
+          <option>TRIVANDRUM</option>
+          <option>TUTICORIN GIS</option>
+          <option>TUTICORIN PS</option>
+          <option>UDUMALPET</option>
+          <option>YELAHANKA</option>
+          
+      </div> 
+      </select></label> 
+      <button type="submit" class="btn btn-primary" value="click">Submit</button>
+      </h4>
+       
+      
+       </label> 
+    
+    </form >
+    {% else %}
+    <form action="submitform" method="get" id="align" style="padding-bottom:20%;padding-top:5%;" >
+      <label for="exampleInputEmail1" style="padding-bottom:8%;padding-top:5%;float:left;"> 
+      <h4 id="position">Station Name: &nbsp;&nbsp;
+    <!--<div class="col-xs-3" {{user.username}}>-->
+      <label for="ex2"> 
+      <select name="station" class="form-control" id="exampleFormControlSelect1">
+      <div class="col-15">
+        <option value="" selected disabled hidden>Choose here</option>
+          <option>{{user.username}}</option>
+      </div> 
+      </select> </label>
+      <button type="submit" class="btn btn-primary" value="click">Submit</button>
+      </h4>
+       
+      
+       </label> 
+    
+    </form >
+  {% endif %}
+    
+
+</div>
+{% else %}
+  <p style="font-size:0.5em;">You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+
+{% endblock content %}

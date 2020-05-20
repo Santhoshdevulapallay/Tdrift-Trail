@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+{% block title %}
+{% endblock title %}
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel=stylesheet href="{% static './theme.css' %} ">
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel=stylesheet href="{% static './new_base.css' %} ">
+  {% comment %}  {% endcomment %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static './font-awesome.min.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static './range_date.js' %} "></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script type="text/javascript" src="{% static './popper.min.js' %} "></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static './bootstrap.min.js' %} "></script> 
+<style>
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-info rounded">
+  <ul class="navbar-nav mr-auto">
+  <li>
+  <a class="navbar-brand" href="home">Home</a></li>
+  &nbsp;&nbsp;
+  <li>
+  <a class="navbar-brand" href="powergrid_month">Upload Status</a></li>
+  <li>&emsp;&emsp;</li>
+  
+  <!-- <li><a class="navbar-brand" href="powergrid_status" >Status</a></li> -->
+  <li class="nav-item dropdown"><h5>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" style="color:white;" aria-haspopup="true" aria-expanded="false">
+          Reports
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href='month_detailspage'>Month_wise</a>
+          <a class="dropdown-item" href="date_wisedetails">Date_wise</a>
+        </div></h5>
+  </li>
+  
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a href="{% url 'logout' %}" class="nav-link fas fa-sign-in-alt"><h5 style="color:white;">Logout</h5></a>
+    </li>
+  </ul>
+</nav>
+</body>
+</html>
+
+{% block content %}
+{% endblock content %}
+
+</body>
+</html>

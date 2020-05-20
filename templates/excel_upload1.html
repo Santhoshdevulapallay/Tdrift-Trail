@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
+    <title>Tdrift_details</title>
+    {% comment %} <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="/resources/demos/style.css"> {% endcomment %}
+    
+    <meta charset = "utf-8">
+    {% comment %} <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" {% endcomment %}
+         rel = "stylesheet">
+    {% comment %} <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> {% endcomment %}
+    {% comment %} <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> {% endcomment %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel=stylesheet href="{% static './hour_navbar.css' %} ">
+    
+    <style>
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 10px  #80ffdf;
+  background-color: #038cfc;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size:15px;
+}
+
+li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+li a.active {
+  color: white;
+  background-color: lightgreen;
+}
+li a.active2 {
+  color:white;
+}
+
+    
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        float:right;
+    }
+
+    .button1 {width: 100px;}
+    .addcolor {
+    background-color: #038cfc;
+    color: white;
+    text-align:float;
+    font-size:15px;
+}
+.mainbody{
+    background-color:#f5efce;
+    padding-top:0px;
+    padding-right:20px;
+}
+textarea{
+  resize: None;
+}
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: lightgreen;
+    display: inline-block;
+    width:25%;
+    height:45px;
+    text-align:center;
+    border-radius:5px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: green;
+}
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+</style>
+
+</head>
+<body class="mainbody">
+<ul>
+  <li><a class="active" href="home" value="Home" style="text-decoration:none;"> Home</a></li>
+  <li><a href='month_detailspage' class="nav-link text-light active2"  style="text-decoration:none;">Month wise details</a>
+  </li>
+  <li><a href='date_wisedetails' class="nav-link text-light active2"  style="text-decoration:none;">Date wise details</a>
+  </li>
+  <li>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</li>
+  <li><a href="{% url 'logout' %}" class="nav-link text-light active2"  style="float:right;text-decoration:none;">Logout</a>
+  </li>
+</ul><br><br>
+<div style="padding-bottom:1%;padding-top:0px;border-left: 6px  solid blue;
+  background-color: lightblue;">
+<p>
+<form method="POST" action="file_user" enctype="multipart/form-data">
+<div style="padding-top:1%;">
+<h4 style="margin-left:15px;"><b >Download Excel Format :</b> <a href="file_format"><span class="glyphicon glyphicon-download-alt"></span></a>
+&emsp;&emsp;&emsp;&emsp;
+
+<input type="file" name="document" id="file" class="inputfile" />
+<label for="file" style="text-align:cenetr;padding-top:10px;">Upload file</label> &emsp;&emsp;&emsp;
+<button type="submit" style="padding-top:5px;height:40px;width:9%;" class="btn btn-primary mt-5">Submit</button>
+</h4>
+</div>
+</form>
+</div>

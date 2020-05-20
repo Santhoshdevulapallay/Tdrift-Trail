@@ -1,0 +1,228 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+{% block content %}
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
+    <title>Month_wise</title>
+    {% comment %} <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="/resources/demos/style.css"> {% endcomment %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
+    <link rel=stylesheet href="{% static './hour_navbar.css' %} ">
+    {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> {% endcomment %}
+    <meta charset = "utf-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script> 
+      <!-- Javascript -->
+    <style>
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 10px  #e7e7e7;
+  background-color: #038cfc;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size:15px;
+}
+
+li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+li a.active {
+  color: white;
+  background-color: lightgreen;
+}
+
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+
+    td, th {
+    border: 2px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+
+    tr:nth-child(even) {
+    background-color: #ffffff;
+    }
+    input{
+        width: 80%;
+        padding: 8px 20px;
+        margin: 4px 0;
+        box-sizing: border-box;
+    }
+    
+    .addcolor{
+      
+        background-color:white;
+        padding-top:0px;
+        padding-right:20px;
+    }
+    li a.active2 {
+  color:white;
+}
+.headcolor{
+  background-color:lightblue;
+  color:black;
+  font-size:18px;
+
+}
+tr:hover {
+  background-color: #ffcccc;
+}
+</style>
+<script>
+function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+
+
+$(function(){
+  $('a').each(function(){
+      if ($(this).prop('href') == window.location.href) {
+          $(this).addClass('active'); $(this).parents('li').addClass('active');
+        }
+    });
+});
+
+
+</script>
+</head>
+
+<ul>
+  <li><a class="active2" href="home" style="text-decoration:none;"><h4 style="font:bold;color:black;">Home</h4></a></li>
+  <li><a class="active2" href='month_detailspage' style="text-decoration:none;"><h4 style="font:bold;color:black;">Month wise details</h4></a>
+  </li>
+  <li><a class="active2" href='date_wisedetails' style="text-decoration:none;"><h4 style="font:bold;color:black;">Date wise details</h4></a>
+  </li>
+   <li>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;</li>
+  
+  <li><a class="active2" href="{% url 'logout' %}" style="float:right;text-decoration:none;"><h4 style="font:bold;color:black;">Logout</h4></a></li>
+</ul>
+<br>
+{% comment %} previous code below {% endcomment %}
+{% comment %} <style>
+#align{
+  background-color:#dadbc3;
+  padding:10px;
+}
+</style>
+{% comment %} <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> {% endcomment %}
+{% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> {% endcomment %}
+<br>
+{% comment %} <body> {% endcomment %}
+<body class="addcolor" > 
+<div style="background-color:white;border:2px solid;">
+<form action="month_wise" method="get"  id="align"  style="padding-bottom:2%;padding-top:2%;" >
+  <div class="container text-center">
+  <h4 > <b style="font-size:18px;">Select Month:</b> &nbsp;
+  <label><input class="date-own form-control" onkeydown="return false" name="month" autocomplete="off" required style="width: 300px;" type="text" /> </label>&emsp;
+  
+&nbsp;  
+<b>Threshold Value:</b>&nbsp;&nbsp;
+     <label><input   autocomplete="off" type="text" class="form-control"  name="threshold" id="num1" placeholder="HH:MM:SS" required pattern="^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$"></label>&emsp;&emsp;
+    <button type="submit" class="btn btn-primary"  value="click">Get Status</button> </h4>
+    </div>
+
+  <script type="text/javascript">
+      $('.date-own').datepicker({
+		autoclose: true,
+        minViewMode: 1,
+		format: 'mm/yyyy'
+       });
+  </script>
+</form >
+
+</div>
+{% if totdetails %}
+ 
+ <label style="margin-left:1%;width:35%;display:inline"><h5><b>Search Here :</b>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Station names.. or anything"  style="width:36%;outline:None;border-radius:5px;height:35px;">
+
+    <table class="table table-sm table-bordered" style="border:2px solid lightblue;" id="myTable">
+        <thead class="thead-dark">
+
+            <tr class="headcolor">
+                <th style="padding-bottom: 25px;">Utility  Name</th>
+                <th style="padding-bottom: 25px;">Station Name</th>
+                <th style="padding-bottom: 25px;">Description</th>
+                <th style="padding-bottom: 18px;">Location</th>
+                <th style="padding-bottom: 18px;">Meter No</th>
+                <th style="padding-bottom: 25px;">GPS</th>
+                <th style="padding-bottom: 18px;">Meter Drift</th>
+                <th>Time Drift</th>
+                <th>Date of Checking</th>
+                <th>Whether time Correction done ?</th> 
+                <th style="padding-bottom: 25px;">Meter Status(Fast/Slow)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {%for station in totdetails %}
+              <tr>
+                {% for stat in station %}
+                
+
+                <td style="text-align:center;vertical-align:center;font-size:14px;"><!-- <input type="text" readonly  height="200" class="form-control" id="exampleFormControlSelect1" width="50" max_length=250 value="{{stat}}"> --> {{stat}}</td>
+                
+                {% endfor %}
+                </tr>
+                
+            {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+<h4 style="color:red;text-align:center;"> No details found </h4>
+        
+   
+
+{% endif %}
+         <script>
+function myFunction() {
+  var input, filter, table, tr, td, cell, i, j;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    // Hide the row initially.
+    tr[i].style.display = "none";
+  
+    td = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < td.length; j++) {
+      cell = tr[i].getElementsByTagName("td")[j];
+      if (cell) {
+        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        } 
+      }
+    }
+  }
+}
+</script>
+  
+</body>
+{% endblock content %}

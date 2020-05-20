@@ -1,0 +1,64 @@
+{% extends 'new_base.html' %}
+{% block title %}
+Time Drift
+{% endblock title %}
+{% block content %}
+<style>
+#position{
+  text:float;
+}
+.button{
+  background-color: green;
+  border: none;
+  color: white;
+  border-radius:5px;
+  padding: 5px 20px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.7;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+#showblock{
+  border-radius:5px;
+  background-color: lightgrey;
+  margin-left:1%;
+  margin-right:1%;
+  padding:30px;
+}
+</style>
+
+{% comment %} <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> {% endcomment %}
+{% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> {% endcomment %}
+<div class="p-3 mb-2 bg-light text-dark">
+{% if user.is_authenticated %}
+
+  {% if request.user.username == "SRLDC_MO" %}
+    <form action="submitform" method="get" id="align"  style="padding-bottom:20%;padding-top:5%;" >
+      <label for="exampleInputEmail1"  style="padding-bottom:8%;padding-top:5%;float:left;"> 
+      <h4 id="position"> Station Name: &nbsp;&nbsp;
+    <!--<div class="col-xs-3" {{user.username}}>-->
+      <label for="ex2"> 
+      <select name="station" required class="form-control" id="exampleFormControlSelect1">
+      <div class="col-15">
+      <option value="" selected disabled hidden>Choose here</option>
+        {% for station in updated_details %}
+            <option>{{station}}</option>
+        {% endfor %}
+      </div> 
+      </select>
+       </label> 
+      <button type="submit" class="btn btn-primary" value="click">Submit</button></h4>
+       </label> </form>
+     {% endif %}
+</div>
+
+{% else %}
+  <p style="font-size:0.5em;">You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+
+{% endblock content %}

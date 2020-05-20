@@ -1,0 +1,145 @@
+{% load static %}
+<html>
+<head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
+    <title>Month_wise Details</title>
+    {% comment %} <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="/resources/demos/style.css"> {% endcomment %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel=stylesheet href="{% static './hour_navbar.css' %} ">
+    
+    <meta charset = "utf-8">
+    {% comment %} <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">{% endcomment %}
+    <style>
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 10px  #e7e7e7;
+  background-color: #038cfc;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size:15px;
+}
+
+li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+li a.active {
+  color: white;
+  background-color: lightgreen;
+}
+
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+
+    td, th {
+    border: 5px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    }
+
+    tr:nth-child(even) {
+    background-color: #dddddd;
+    }
+    input{
+        width: 80%;
+        padding: 8px 20px;
+        margin: 4px 0;
+        box-sizing: border-box;
+    }
+    .addcolor{
+        background-color:#f5efce;
+        padding-top:0px;
+        padding-right:20px;
+    }
+    </style>
+</head>
+<body class="addcolor">
+<ul>
+  <li><a class="active" href="home" style="text-decoration:none;"><h4 style="font:bold;color:black;">Home</h4></a></li>
+  <li><a href="month_detailspage" style="text-decoration:none;" class="nav-link text-light"><h4 style="font:bold;color:black;">Month_wise Details</h4></a></li>
+  <li><a href='date_wisedetails' style="text-decoration:none;"><h4 style="font:bold;color:black;">Date wise details</h4></a>
+  </li>
+  <li>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</li>
+  <li><a href="{% url 'logout' %}" style="float:right;text-decoration:none;"><h4 style="font:bold;color:black;">Logout</h4></a>
+  </li>
+</ul>
+<br>
+<div class="table-responsive info "> 
+ <label style="margin-left:25%;width:35%"><h5><b>Search Here :</b>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Station names.. or anything"  style="width:76%" autocomplete="off"></h5></label>
+
+    <table class="table warning " id="myTable">
+        <thead class="thead-dark">
+
+            <tr>
+                <th>Station Name</th>
+                <th>Meter No</th>
+                <th >GPS</th>
+                <th>Meter Drift</th>
+                <th>Date of Checking</th>
+                <th>Whether time Correction done ?</th>
+                <th> Remarks</th> 
+            </tr>
+            </thead>
+            <tbody>
+            {%for station in totdetails %}
+                
+
+                <td><input type="text" readonly  height="200" class="form-control" id="exampleFormControlSelect1" width="50" max_length=250 value="{{station.station_name}}"> </td>
+                <td><input type="text" readonly  height="200" class="form-control" id="exampleFormControlSelect1" width="50" max_length=250 value="{{station.Meter_no}}"> </td>
+                <td><input type="text" readonly class="form-control" id="exampleFormControlSelect1"      value="{{station.gps}}"></td>
+                <td><input type="text" readonly  class="form-control" id="exampleFormControlSelect1" value="{{station.meter_drift}}"></td>
+                <td><input type="text" readonly  class="form-control" id="exampleFormControlSelect1" value="{{station.dateofchecking}}"  ></td>
+                <td><input type="text" readonly  class="form-control" id="exampleFormControlSelect1" value="{{station.correction_needed}}"  ></td>
+                <td><input type="text" readonly  class="form-control" id="exampleFormControlSelect1" value="{{station.remarks}}"></td>
+                <!--{% if not forloop.last %} {% endif %} id="datepicker-13"-->
+                </tr>
+                
+            {% endfor %}
+            </tbody>
+            </table></div>
+            <script>
+function myFunction() {
+  var input, filter, table, tr, td, cell, i, j;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    // Hide the row initially.
+    tr[i].style.display = "none";
+  
+    td = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < td.length; j++) {
+      cell = tr[i].getElementsByTagName("td")[j];
+      if (cell) {
+        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        } 
+      }
+    }
+  }
+}
+</script>
+  
+</body>
+</html>

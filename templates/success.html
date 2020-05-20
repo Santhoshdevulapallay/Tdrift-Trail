@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Submitted</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
+<link rel=stylesheet href="{% static './new_base.css' %} ">
+{% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
+{% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> {% endcomment %}
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> {% endcomment %}
+{% comment %} <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> {% endcomment %}
+<style>
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 10px  #e7e7e7;
+  background-color: #038cfc;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size:15px;
+}
+
+li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+li a.active {
+  color: white;
+  background-color: lightgreen;
+}
+li a.active2{
+  color:white;
+}
+	.bs-example{
+    	margin: 40px;
+        height:150px;
+    }
+</style>
+</head>
+<body>
+<ul>
+  <li><a class="active2"  href='home' style="text-decoration:none;"><h5 style="font:bold;color:black;">Home</h5></a></li>
+  <li><a class="active2" href="month_detailspage" float=right style="text-decoration:none;"><h5 style="font:bold;color:black;">Month_wise Details</h5></a></li>
+  <li><a class="active2" href="date_wisedetails" float=right style="text-decoration:none;"><h5 style="font:bold;color:black;">Date_wise Details</h5></a></li>
+  <li style="float:right;"><a class="active2" href="{% url 'logout' %}" style="text-decoration:none;"><h5 style="font:bold;color:black;">Logout</h5></a>
+  </li>
+</ul>
+
+<div class="bs-example"> 
+<div class="alert alert-success alert-dismissible fade show">
+    <strong text="center">Success!</strong> Submitted successfully.
+    
+</div>
+{% comment %} <button type="button" class="btn btn-link"> <a href= 'fulldetails'>To check station details click here</a></button> {% endcomment %}
+</div>
+{% comment %} {{details}} {% endcomment %}
+</body>
+</html>

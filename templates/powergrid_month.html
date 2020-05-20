@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>File Status </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> 
+<link rel=stylesheet href="{% static './new_base.css' %} ">
+{% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
+{% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> {% endcomment %}
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> {% endcomment %}
+{% comment %} <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> {% endcomment %}
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
+<style>
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 10px  #e7e7e7;
+  background-color: #038cfc;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size:15px;
+}
+
+li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+li a.active {
+  color: white;
+  background-color: lightgreen;
+}
+li a.active2{
+  color:white;
+}
+	.bs-example{
+    	margin: 40px;
+        height:150px;
+    }
+tr:nth-child(even){
+  background-color: #ffe6e6;
+}
+</style>
+</head>
+<body>
+<ul>
+  <li><a class="active"  href='home' style="text-decoration:none;"><h5 style="font:bold;color:black;font-size:18px;">Home</h5></a></li>
+  <li><a class="active2" href="month_detailspage" float=right style="text-decoration:none;"><h5 style="font:bold;color:black;font-size:18px;">Month_wise Details</h5></a></li>
+  <li><a class="active2" href="date_wisedetails" float=right style="text-decoration:none;"><h5 style="font:bold;color:black;font-size:18px;">Date_wise Details</h5></a></li>
+  <li style="float:right;"><a class="active2" href="{% url 'logout' %}" style="text-decoration:none;"><h5 style="font:bold;color:black;font-size:18px;">Logout</h5></a>
+  </li>
+</ul><br><br>
+<div style="background-color:white;border:2px solid;">
+<form action="final_filestatus" method="get"  id="align"  style="padding-bottom:2%;padding-top:2%;" >
+  <div class="container text-center">
+  <h4>
+  
+&nbsp;  
+<b>Select Month:</b>&nbsp;&nbsp;
+     <label><input class="date-own form-control" required name="month" autocomplete="off" style="width: 150px;" type="text" /></label>&emsp;&emsp;
+    <button type="submit" class="btn btn-primary"  value="click">Get Status</button> </h4>
+    </div>
+
+</form >
+</div>
+{% if totdetails %}
+  <label style="margin-left:25%;width:55%"><h5><b>Search Here :</b>
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Station names.. or anything"  style="width:76%;border-radius:5px;height:35px;"></label>
+  <br><br>
+    <table class="table table-sm table-bordered" id="myTable" style="margin-left:8%;width:95%;height:10%;border:5px solid green;">
+       
+        <thead class="thead-dark" style="border-style:5px solid green;">
+
+            <tr class="headcolor">
+                <th style="word-wrap:break-word;text-align:center;">Utility Name</th>
+                <th style="word-wrap:break-word;text-align:center;">Station Name</th>
+                <th style="word-wrap:break-word;text-align:center;">Date of uploaded</th>
+                <th style="word-wrap:break-word;text-align:center;">File Status(Yes/No)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {%for station in totdetails %}
+            <tr>
+                {% for meter in station %}
+
+                <!-- {% comment %} <td><input type="text" readonly  height="200" class="form-control" id="exampleFormControlSelect1" width="50" max_length="250" >{{meter}}</td> {% endcomment %}
+                <td><input type="text"  wrap="soft" readonly class="form-control" id="exampleFormControlSelect1"  max_length=250 name="station name" value="{{meter}}"></td> -->
+                <td>{{meter}}</td>
+            
+                {% endfor %} 
+            </tr>
+        
+                <!--{% if not forloop.last %} {% endif %} id="datepicker-13"-->
+                
+            {% endfor %}
+            </tbody>
+            </table>
+
+<script>
+  function myFunction() {
+  var input, filter, table, tr, td, cell, i, j;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    // Hide the row initially.
+    tr[i].style.display = "none";
+  
+    td = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < td.length; j++) {
+      cell = tr[i].getElementsByTagName("td")[j];
+      if (cell) {
+        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        } 
+      }
+    }
+  }
+}
+</script>
+
+{% else %}
+<h4 style="color:red;"> No details found </h4>
+
+{% endif %}
+
+
+
+<script type="text/javascript">
+      $('.date-own').datepicker({
+		autoclose: true,
+        minViewMode: 1,
+		format: 'mm/yyyy'
+       });
+  </script>
+</body>
+</html>
