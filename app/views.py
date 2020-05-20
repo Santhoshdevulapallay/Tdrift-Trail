@@ -143,7 +143,7 @@ def user_fileupload(request):
                 # New Correc done here
                 
                 date_modified=[]
-
+               
                 for i in range(0,len(df['Station_name'])):
                     if (len(str(df['Date_of_Check(dd/mm/yy)'][i]))!=0):
 
@@ -200,9 +200,14 @@ def user_fileupload(request):
         
         for i in range(length):
             # new_dates.append(df['Date_of_Check(dd/mm/yy)'][i])
-            print("First Date")
-            new_dates.append(datetime.datetime.strptime(df['Date_of_Check(dd/mm/yy)'][i],'%d/%m/%Y').date())
-            print(new_dates)
+            if type(df['Date_of_Check(dd/mm/yy)'][i])== type(pd.Timestamp('2017-01-01T12')):
+               
+                changed_type=df['Date_of_Check(dd/mm/yy)'][i].strftime('%d/%m/%Y')
+                new_dates.append(datetime.datetime.strptime(changed_type,'%d/%m/%Y').date())
+               
+            else:
+                new_dates.append(datetime.datetime.strptime(df['Date_of_Check(dd/mm/yy)'][i],'%d/%m/%Y').date())
+        
        
         row_list =[]  
         for index, rows in only_na.iterrows():
@@ -245,7 +250,6 @@ def user_fileupload(request):
                 correction_needed=na_free['Correction_Needed(Yes/No)'][i],
                 remarks=na_free['Remarks'][i]
                 )
-           
             upload_data.save()
         if  only_na.empty == False:
             return render(request,"dropped_values.html",{"dropped":row_list})
