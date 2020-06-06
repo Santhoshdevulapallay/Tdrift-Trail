@@ -17,7 +17,7 @@ cloudpickle==1.2.1
 cx-Oracle==7.2.3
 dask==2.3.0
 distributed==2.3.2
-Django==2.1.15
+Django==2.2.13
 django-crispy-forms==1.8.1
 django-session-timeout==0.0.4
 Eel==0.10.4
